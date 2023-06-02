@@ -1,0 +1,9 @@
+class Storyteller {
+    constructor() {
+
+    }
+
+    update() {
+
+    }
+}

@@ -18,10 +18,9 @@ class Spaceship extends Phaser.GameObjects.Sprite {
     this.body.onCollide = true;
 
     this.body.onWorldBounds = true;
+    
     // Set depth to 3. 
     this.setDepth(3);
-
-
   }
 
   update() {
@@ -29,12 +28,14 @@ class Spaceship extends Phaser.GameObjects.Sprite {
         this.y += this.speedY;
 
         // If isFiring is true, create a new projectile.
-        if (this.isFiring && Math.floor(this.tick % this.fireRate) === 0)
-          this.laser = new Projectile(this.scene, this.x, this.y - 35);
+        if (this.isFiring && Math.floor(this.tick % this.fireRate) === 0) {
+          this.laser = new Projectile(this.scene, this.x, this.y - 45);
+        }
 
         // Update tick.
-        if (this.tick > 3600)
+        if (this.tick > 3600) {
           this.tick = 0;
+        }
         this.tick++;
     }
 }

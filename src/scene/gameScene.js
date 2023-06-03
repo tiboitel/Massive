@@ -3,6 +3,7 @@ class GameScene extends Phaser.Scene {
     constructor() {
         super('game');
         this.ticks = 0;
+        this.ennemy = [];
     }
     
     preload() {
@@ -11,6 +12,7 @@ class GameScene extends Phaser.Scene {
         this.load.image('volumetricfog2', 'assets/fogb320x480.png');
         this.load.image('volumetricfog3', 'assets/fogc320x480.png');
         this.load.image('spaceship', 'assets/spaceship.png');
+        this.load.image('ennemy1', 'assets/ennemy1.png');
         this.load.image('projectile', 'assets/laser.png');  
         this.load.image('laserup', 'assets/laserup.png');
     }
@@ -59,9 +61,26 @@ class GameScene extends Phaser.Scene {
         // Layer fog update.
         this.layerFog.update();
 
+        // Collide
+        
         // Create a new boost every n frames.
         if (this.ticks % 1800 === 0) {
-            let boost = new Boost(this, Phaser.Math.Between(16, game.config.width - 16),    -32);
+            let boost = new Boost(this, Phaser.Math.Between(16, game.config.width - 16), -32);
+            
+            this.physics.add.collider(boost, this.spaceship, boost.onCollision);    
+        }
+
+        // Create ennemy every n frames.
+        if (this.ticks % 512 === 0) {
+            let waveWidth =  48 * 4;
+            let waveFlip = Phaser.Math.Between(0, 1);
+            let wavePosX = (waveFlip) ? Phaser.Math.Between(32, game.config.width - waveWidth) : Phaser.Math.Between(32 + waveWidth, game.config.width);
+
+            for (let i = 0; i < 4; i++) {
+                    let currentEnnemyPosX = (waveFlip) ? wavePosX + (i * 48) : wavePosX - (i * 48);
+                    this.ennemy.push(new Ennemy(this, currentEnnemyPosX, -3 * (i * 6)));
+                    this.physics.add.collider(this.ennemy[this.ennemy.length - 1], this.spaceship);
+                }
         }
         this.ticks++;
     }

@@ -1,6 +1,6 @@
-class Boost extends Phaser.GameObjects.Sprite {
+class Ennemy extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y) {
-      super(scene, x, y, 'laserup');
+      super(scene, x, y, 'ennemy1');
   
       // Add this projectile to the scene
       scene.add.existing(this);
@@ -15,17 +15,16 @@ class Boost extends Phaser.GameObjects.Sprite {
       this.body.setVelocityY(64);
 
       // Set depth to 3. 
-      this.setDepth(2);
+      this.setDepth(3);
+      this.setScale(1.4);
 
       //this.scale(0.5);
       this.body.onCollide = true;
       this.body.onCollideCallback = this.onCollision.bind(this);
     }
 
-    onCollision(boost, player) {
-        console.log("Boost consumned !");
-        console.log(this);
-        boost.destroy();
+    onCollision() {
+        this.destroy();
     }
   
 }

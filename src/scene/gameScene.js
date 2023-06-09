@@ -72,15 +72,16 @@ class GameScene extends Phaser.Scene {
 
         // Create ennemy every n frames.
         if (this.ticks % 512 === 0) {
-            let waveWidth =  48 * 4;
-            let waveFlip = Phaser.Math.Between(0, 1);
-            let wavePosX = (waveFlip) ? Phaser.Math.Between(32, game.config.width - waveWidth) : Phaser.Math.Between(32 + waveWidth, game.config.width);
+            // Setup a new ennemy wave.
+            let wave = new Wave(this, 4);
 
-            for (let i = 0; i < 4; i++) {
-                    let currentEnnemyPosX = (waveFlip) ? wavePosX + (i * 48) : wavePosX - (i * 48);
-                    this.ennemy.push(new Ennemy(this, currentEnnemyPosX, -3 * (i * 6)));
-                    this.physics.add.collider(this.ennemy[this.ennemy.length - 1], this.spaceship);
-                }
+            // Need to create actual patterns and not just a straight line one. 
+            let wavePattern = new WavePatterns(48, 8, 0);
+
+            wavePattern.applyWavePatterns(wave, 0);
+            
+            // Need to create a garbage-collector to destroy units who get out of screen or get beam
+            // by the player.
         }
         this.ticks++;
     }

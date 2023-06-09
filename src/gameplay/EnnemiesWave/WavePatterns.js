@@ -5,27 +5,23 @@ const Patterns = {
 };
 
 class WavePatterns {
-    constructor(ennemiesSize, offsetX = 0, offsetY = 0, waveDirection = 0) {
-        this.ennemisCount = ennemiesCount;
+    constructor(offsetX = 0, offsetY = 0, direction = 0) {
         this.offsetX = offsetX;
         this.offsetY = offsetY;
-        this.ennemiesSize = ennemiesSize;
-        this.waveDirection = waveDirection;
-        this.wavs = [];
+        this.direction = direction;
     }
 
     applyWavePatterns(wave, patternType) {
-        let waveWidth =  this.ennemiesSize * this.ennemiesCount;
-        let wavePosX = (this.waveDirection) ? Phaser.Math.Between(this.ennemiesSize, game.config.width - waveWidth) :
-            Phaser.Math.Between(this.ennemiesSize + waveWidth, game.config.width);
-
-        for (let i = 0; i < this.ennemiesCount; i++) {
-            let currentEnnemyPosX = (this.waveDirection) ? wavePosX + (i * this.offsetX) : wavePosX - (i * this.offsetX);
+        let largestUnitSize = wave.getLargestUnitWidth();
+        let waveWidth = largestUnitSize * wave.countUnits();
+        // TO-DO: Change the position calculation depends of the patterns.
+        let wavePosX = (this.direction) ? Phaser.Math.Between(largestUnitSize, wave.scene.game.config.width - waveWidth) :
+            Phaser.Math.Between(largestUnitSize + waveWidth, wave.scene.game.config.width);
+        for (let i = 0; i < wave.countUnits(); i++) { 
+            let currentEnnemyPosX = (this.direction) ? wavePosX + (i * this.offsetX) : wavePosX - (i * this.offsetX);
             let currentEnnemyPosY = this.offsetY * i;
-            this.wave[i].x = currentEnnemyPosX;
-            this.wave[i].y = currentEnnemyPosY;
-        }
 
-        return wave;
+            wave.getUnitByIndex(i).setPosition(currentEnnemyPosX, currentEnnemyPosY);
+        }
     }
 }

@@ -4,6 +4,8 @@ class GameScene extends Phaser.Scene {
         super('game');
         this.ticks = 0;
         this.ennemy = [];
+        this.boost = null;
+        this.storyteller = new Storyteller();
     }
     
     preload() {
@@ -63,26 +65,45 @@ class GameScene extends Phaser.Scene {
 
         // Collide
         
+        let roll = Phaser.Math.Between(0, 1);
         // Create a new boost every n frames.
-        if (this.ticks % 1800 === 0) {
-            let boost = new Boost(this, Phaser.Math.Between(16, game.config.width - 16), -32);
+        if (roll <= this.storyteller.temperature && this.storyteller.temperature >= 0.9 && this.ticks % 256 == 0) {
+            this.boost = new Boost(this, Phaser.Math.Between(16, game.config.width - 16), -32);
+            this.storyteller.temperature -= 0.5;
             
-            this.physics.add.collider(boost, this.spaceship, boost.onCollision);    
+            this.physics.add.collider(this.boost, this.spaceship, this.boost.onCollision);  
         }
 
         // Create ennemy every n frames.
-        if (this.ticks % 512 === 0) {
+        if (roll <= this.storyteller.temperature && this.ticks % 64 == 0) {
             // Setup a new ennemy wave.
             let wave = new Wave(this, 4);
 
             // Need to create actual patterns and not just a straight line one. 
             let wavePattern = new WavePatterns(48, 8, 0);
 
-            wavePattern.applyWavePatterns(wave, 0);
-            
-            // Need to create a garbage-collector to destroy units who get out of screen or get beam
-            // by the player.
+            wavePattern.applyWavePatterns(wave, 0);       
         }
+        
+        // Need to create a garbage-collector to destroy units who get out of screen or get beam
+        // by the player.
+        if (this.ticks % 24 == 0) {
+            for (let i = 0; i < this.ennemy.length; i++) {
+                if (this.ennemy[i].y >= game.config.height) 
+                    this.ennemy[i].destroy();   
+
+                if (this.ennemy[i].active === false)
+                    this.ennemy.splice(i, 1);
+                    this.storyteller.temperature += 0.025;
+                    if (this.storyteller.temperature < 0)
+                        this.storyteller.temperature = 0;
+            }
+
+            if (this.boost != null && this.boost.y > game.config.height)
+                this.boost.destroy();
+        }
+        this.storyteller.update(this.ticks);
+        console.log(this.storyteller.temperature);
         this.ticks++;
     }
 } 

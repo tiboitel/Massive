@@ -6,7 +6,9 @@ class Wave {
 
         for (let i = 0; i < this.unitsCount; i++) { 
             this.scene.ennemy.push(new Ennemy(this.scene, 0, 0));
-            this.scene.physics.add.collider(this.scene.ennemy[this.scene.ennemy.length - 1], this.scene.spaceship);
+            this.scene.physics.add.collider(this.scene.ennemy[this.scene.ennemy.length - 1], this.scene.spaceship,
+                this.scene.ennemy[this.scene.ennemy.length - 1].onCollision);
+            // TODO: Trigger explosion animation here.
             this.units.push(this.scene.ennemy.length - 1);
         }
     }

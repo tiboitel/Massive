@@ -16,24 +16,17 @@ class Projectile extends Phaser.GameObjects.Sprite {
 
       //this.scale(0.5);
       this.body.onCollide = true;
-      this.body.onCollideCallback = this.onCollision.bind(this);
 
       // Set depth to 3. 
-      this.setDepth(3);
+      this.setDepth(2);
     }
 
-    onCollision() {
-        console.log("Laser destroyed !");
-        this.destroy();
+    onCollision(projectile, object) {
+        projectile.destroy();
+        object.destroy();
     }
   
     update() {
-      // Any update code you need for your projectile goes here
-      console.log(this.y);
-      console.log(this.body.y);
-      if (this.y > 0 || this.y < this.scene.game.config.height)
-        console.log("Laser destroyed");
-        this.destroy();
     }
   }
   

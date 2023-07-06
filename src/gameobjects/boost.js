@@ -22,10 +22,10 @@ class Boost extends Phaser.GameObjects.Sprite {
       this.body.onCollideCallback = this.onCollision.bind(this);
     }
 
-    onCollision(boost, player) {
-        console.log("Boost consumned !");
-        console.log(this);
+    onCollision(boost, spaceship) {
         boost.destroy();
+        if (spaceship.laserUpgrade < 3)
+          spaceship.laserUpgrade++;
     }
   
 }

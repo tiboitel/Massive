@@ -8,23 +8,21 @@ class Ennemy extends Phaser.GameObjects.Sprite {
       // Enable physics on the projectile
       scene.physics.world.enable(this);
   
-      // Set up physics properties for the projectile
-  
-      // Set up initial velocity for the projectile
+      // Set up initial velocity for the ennemy.
       this.body.setVelocityX(0);
-      this.body.setVelocityY(64);
+      this.body.setVelocityY(128);
 
       // Set depth to 3. 
       this.setDepth(3);
       this.setScale(1.4);
 
-      //this.scale(0.5);
       this.body.onCollide = true;
-      this.body.onCollideCallback = this.onCollision.bind(this);
     }
 
-    onCollision() {
-        this.destroy();
+    onCollision(ennemy, spaceship) {
+        ennemy.destroy();
+        if (spaceship.laserUpgrade > 0) {
+          spaceship.laserUpgrade--;
+        }
     }
-  
 }

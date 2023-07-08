@@ -1,4 +1,4 @@
-    ### Massive
+## Massive
 
 Welcome to Massive - a minimalist space shoot write in JavaScript using the fantastic Phaser game framework version 3.60! Prepare to embark on a cosmic adventure, battling hordes of intergalactic invaders !
 

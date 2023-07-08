@@ -18,9 +18,10 @@ class VolumetricFog {
     //  Fade the fog in and out using a sine wave
     const camera = this.scene.cameras.main;
     const t = this.scene.time.now / 1000;
-    const alpha = 0.04 + (Math.sin(t) * 0.04 + 0.08); // Sine wave from 0 to 1
+    const alpha = 0.05 + (Math.sin(t) * 0.05 + 0.10); // Sine wave from 0 to 1
     const scrollY = camera.scrollY;
     
+    this.fogImage.setTint(this.color); // Set the tint to the desired color
     this.fogImage.alpha = alpha;
     this.fogImage.y += 2.5 * 500 / 1000;
     this.fogImage.tilePositionY += 2.5 * 500 / 1000;

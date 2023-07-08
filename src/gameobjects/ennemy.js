@@ -10,7 +10,7 @@ class Ennemy extends Phaser.GameObjects.Sprite {
   
       // Set up initial velocity for the ennemy.
       this.body.setVelocityX(0);
-      this.body.setVelocityY(128);
+      this.body.setVelocityY(96);
 
       // Set depth to 3. 
       this.setDepth(3);

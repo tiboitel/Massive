@@ -14,7 +14,7 @@ class LayerFog {
             this.fog.add(layer);
         }
 
-        this.fog.setAlpha(0.1);
+        this.fog.setAlpha(0.05);
         this.fog.setBlendMode(Phaser.BlendModes.SCREEN);
         this.fog.setDepth(1001);
     }
@@ -22,6 +22,7 @@ class LayerFog {
     update() {
         // Layer fog update.
         for (let i = 0; i < this.fog.list.length; i++) {
+            this.fog.list[i].fillStyle(this.color, 0.1);
             this.fog.list[i].y += i * this.speed * 500 / 1000;
             if (this.fog.list[i].y > this.scene.game.config.height) {
                 this.fog.list[i].y = -this.scene.game.config.height;

@@ -6,6 +6,7 @@ class GameScene extends Phaser.Scene {
         this.ennemy = [];
         this.boost = null;
         this.storyteller = new Storyteller();
+        this.colorsHelper = new ColorsHelper();
     }
     
     preload() {
@@ -25,7 +26,7 @@ class GameScene extends Phaser.Scene {
         this.cameras.main.setBounds(0, 0, this.sys.game.config.width, this.sys.config.height);
 
         // Colorscheme: Cyan, Violet, Magenta, Yellow
-        this.colorscheme =  [0x37E2D5, 0x590696, 0xC70A80, 0XFBCB0A];
+        this.colorscheme =  [0x37E2D5, 0xC70A80, 0x590696, 0xFBCB0A];
 
         // Starfield
         this.starfield = new Starfield(this, 2, 0.6, 2, 0);
@@ -39,14 +40,14 @@ class GameScene extends Phaser.Scene {
         this.keyboardController = new KeyboardController(this, this.spaceship);
 
         // Volumetric Fog
-        const vFogColor = this.colorscheme[Phaser.Math.Between(0, 4)];
+        const vFogColor = this.colorscheme[0];
         const vFogSpriteName = "volumetricfog" + Phaser.Math.Between(1, 3);
         
         this.volumetricFog = new VolumetricFog(this, 0, 0, game.config.width, game.config.height, vFogSpriteName, vFogColor);
         this.volumetricFog2 = new VolumetricFog(this, 0, 0 - game.config.height, game.config.width, game.config.height, vFogSpriteName, vFogColor);
     
         // Layer Fog
-        this.layerFog = new LayerFog(this, 0, 0, game.config.width, game.config.height, this.colorscheme[Phaser.Math.Between(0, 4)]);
+        this.layerFog = new LayerFog(this, 0, 0, game.config.width, game.config.height, this.colorscheme[0]);
     }
 
     update() {
@@ -55,6 +56,14 @@ class GameScene extends Phaser.Scene {
 
         // Starfield
         this.starfield.update();
+
+        let colorschemeIndex = Math.floor((this.storyteller.temperature) * 4) %  4;
+        let nextGradientColor = (colorschemeIndex + 1) > this.colorscheme.length ? this.colorscheme.length : colorschemeIndex + 1;
+        let currentColor = this.colorsHelper.getColorGradient(this.storyteller.temperature, this.colorscheme[colorschemeIndex], this.colorscheme[colorschemeIndex + 1]);
+
+        console.log(colorschemeIndex);
+        this.volumetricFog.color = currentColor;
+        this.volumetricFog2.color = currentColor;
 
         // Volumetric fog update.
         this.volumetricFog.update();
@@ -65,17 +74,15 @@ class GameScene extends Phaser.Scene {
 
         // Collide
         
-        let roll = Phaser.Math.Between(0, 1);
+        let roll = Phaser.Math.FloatBetween(0, 1);
         // Create a new boost every n frames.
-        if (roll <= this.storyteller.temperature && this.storyteller.temperature >= 0.9 && this.ticks % 256 == 0) {
+        if (roll <= this.storyteller.temperature && this.storyteller.temperature >= 0.7  && this.ticks % 300 == 0) {
             this.boost = new Boost(this, Phaser.Math.Between(16, game.config.width - 16), -32);
-            this.storyteller.temperature -= 0.5;
-            
             this.physics.add.collider(this.boost, this.spaceship, this.boost.onCollision);  
         }
 
         // Create ennemy every n frames.
-        if (roll <= this.storyteller.temperature && this.ticks % 64 == 0) {
+        if (roll + -0.05 <= this.storyteller.temperature && this.ticks % 60 == 0) {
             // Setup a new ennemy wave.
             let wave = new Wave(this, 4);
 
@@ -94,7 +101,7 @@ class GameScene extends Phaser.Scene {
 
                 if (this.ennemy[i].active === false)
                     this.ennemy.splice(i, 1);
-                    this.storyteller.temperature += 0.025;
+                    this.storyteller.temperature -= 0.025;
                     if (this.storyteller.temperature < 0)
                         this.storyteller.temperature = 0;
             }
@@ -103,7 +110,6 @@ class GameScene extends Phaser.Scene {
                 this.boost.destroy();
         }
         this.storyteller.update(this.ticks);
-        console.log(this.storyteller.temperature);
         this.ticks++;
     }
 } 

@@ -57,36 +57,33 @@ class GameScene extends Phaser.Scene {
         // Starfield
         this.starfield.update();
 
+        // Volumetric fog.
         let colorschemeIndex = Math.floor((this.storyteller.temperature) * 4) %  4;
         let nextGradientColor = (colorschemeIndex + 1) > this.colorscheme.length ? this.colorscheme.length : colorschemeIndex + 1;
         let currentColor = this.colorsHelper.getColorGradient(this.storyteller.temperature, this.colorscheme[colorschemeIndex], this.colorscheme[colorschemeIndex + 1]);
 
-        console.log(colorschemeIndex);
         this.volumetricFog.color = currentColor;
         this.volumetricFog2.color = currentColor;
 
-        // Volumetric fog update.
         this.volumetricFog.update();
         this.volumetricFog2.update();
         
-        // Layer fog update.
+        // Layer fog
         this.layerFog.update();
 
-        // Collide
-        
-        let roll = Phaser.Math.FloatBetween(0, 1);
         // Create a new boost every n frames.
-        if (roll <= this.storyteller.temperature && this.storyteller.temperature >= 0.7  && this.ticks % 300 == 0) {
+        let roll = Phaser.Math.FloatBetween(0, 1);
+
+        if (roll <= this.storyteller.temperature && this.ticks % 360 == 0) {
             this.boost = new Boost(this, Phaser.Math.Between(16, game.config.width - 16), -32);
             this.physics.add.collider(this.boost, this.spaceship, this.boost.onCollision);  
         }
 
         // Create ennemy every n frames.
-        if (roll + -0.05 <= this.storyteller.temperature && this.ticks % 60 == 0) {
+        if (roll + -0.10 <= this.storyteller.temperature && this.ticks % 60 == 0) {
             // Setup a new ennemy wave.
-            let wave = new Wave(this, 4);
-
-            // Need to create actual patterns and not just a straight line one. 
+            let enemiesCount = Math.floor(Phaser.Math.Between(4, 8) * this.storyteller.temperature) + 1;
+            let wave = new Wave(this, enemiesCount);
             let wavePattern = new WavePatterns(48, 8, 0);
 
             wavePattern.applyWavePatterns(wave, 0);       

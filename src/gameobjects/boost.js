@@ -23,9 +23,10 @@ class Boost extends Phaser.GameObjects.Sprite {
     }
 
     onCollision(boost, spaceship) {
-        boost.destroy();
         if (spaceship.laserUpgrade < 3)
-          spaceship.laserUpgrade++;
+          spaceship.laserUpgrade += 1;
+        boost.destroy();
+
     }
   
 }

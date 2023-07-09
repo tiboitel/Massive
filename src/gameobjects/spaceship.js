@@ -2,15 +2,14 @@ class Spaceship extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y) {
     super(scene, x, y, 'spaceship');
     
-    this.speedX = 0;
-    this.speedY = 0;
-    this.speed = 5;
+    this.speed = 256;
     this.isFiring = false;
     this.fireRate = 32;
     this.tick = 0;
     this.lasers = [];
     this.scene = scene;
     this.laserUpgrade = 0;
+    this.lastFrameTimespan = 0;
 
     // Scale the container to the desired size
     this.setScale(0.4);
@@ -27,9 +26,6 @@ class Spaceship extends Phaser.GameObjects.Sprite {
   }
 
   update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-
         // If isFiring is true, create a new projectile.
         this.shoot();
 
@@ -48,7 +44,7 @@ class Spaceship extends Phaser.GameObjects.Sprite {
           }
         }
 
-        this.body.setVelocityY(0);
+        // this.body.setVelocityY(0);
         this.tick++;
     }
 
@@ -56,21 +52,22 @@ class Spaceship extends Phaser.GameObjects.Sprite {
         if (this.isFiring && Math.floor(this.tick % this.fireRate) === 0) {
           if (this.laserUpgrade == 0 ) {
             this.lasers.push(new Projectile(this.scene, this.x, this.y - 35));  
+          } else if (this.laserUpgrade == 1) {
+            this.lasers.push(new Projectile(this.scene, this.x - 20, this.y - 25));  
+            this.lasers.push(new Projectile(this.scene, this.x + 20, this.y - 25));  
           } else {
-            this.lasers.push(new Projectile(this.scene, this.x - 15, this.y - 25));  
-            this.lasers.push(new Projectile(this.scene, this.x + 15, this.y - 25));  
+            this.lasers.push(new Projectile(this.scene, this.x - 20, this.y - 25));  
+            this.lasers.push(new Projectile(this.scene, this.x + 20, this.y - 25));
+            this.lasers.push(new Projectile(this.scene, this.x, this.y - 35));   
           }
 
           for (let i = 0; i < this.scene.ennemy.length; i++) {
-            this.scene.physics.add.collider(this.lasers[this.lasers.length - 1], this.scene.ennemy[i],
-              this.lasers[this.lasers.length - 1].onCollision);
-
-            if (this.laserUpgrade > 0) {
-              this.scene.physics.add.collider(this.lasers[this.lasers.length - 2], this.scene.ennemy[i],
-                this.lasers[this.lasers.length - 2].onCollision);
+            for (let j = 0; j < this.lasers.length; j++) {
+              this.scene.physics.add.collider(this.lasers[j], this.scene.ennemy[i], this.lasers[j].onCollision);
             }
           }
         }
       }
+      
 }
 

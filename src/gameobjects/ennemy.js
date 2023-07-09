@@ -24,5 +24,6 @@ class Ennemy extends Phaser.GameObjects.Sprite {
         if (spaceship.laserUpgrade > 0) {
           spaceship.laserUpgrade--;
         }
+        spaceship.body.setVelocityY(0);
     }
 }

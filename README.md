@@ -5,7 +5,7 @@ Welcome to Massive - a minimalist space shoot write in JavaScript using the fant
 ## How to Play
 
     • Clone or download the repository to your local machine.
-    • Open the index.html file in your favorite web browser.
+    • Run `php -s localhost:8080', the address on your favorite browser.
     • Use the WASD to navigate your spaceship.
     • Press the spacebar to unleash a fiery barrage of laser beams.
     • Aim your shots at the alien invaders and obliterate them before they get you down !

@@ -8,8 +8,6 @@ class Projectile extends Phaser.GameObjects.Sprite {
       // Enable physics on the projectile
       scene.physics.world.enable(this);
   
-      // Set up physics properties for the projectile
-  
       // Set up initial velocity for the projectile
       this.body.setVelocityX(0);
       this.body.setVelocityY(-500);
@@ -24,9 +22,6 @@ class Projectile extends Phaser.GameObjects.Sprite {
     onCollision(projectile, object) {
         projectile.destroy();
         object.destroy();
-    }
-  
-    update() {
-    }
   }
+}
   

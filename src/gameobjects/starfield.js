@@ -29,7 +29,6 @@ class Starfield {
     createStar(x, y) {
         const size = Phaser.Math.Between(1, this.maxStarSize);
         const color = Phaser.Display.Color.HexStringToColor('#' + Phaser.Math.RND.integerInRange(0x37E2D5, 0XFBCB0A).toString(16));
-        // const color = Phaser.Display.Color.HexStringToColor('#fff');
         const alpha = Phaser.Math.FloatBetween(0.2, 0.8);
         const shape = Phaser.Math.Between(0, 1); // 0 = cross, 1 = circle
         const star = this.scene.add.graphics();

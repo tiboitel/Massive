@@ -17,10 +17,9 @@ class Spaceship extends Phaser.GameObjects.Sprite {
     // Enable physics.
     scene.physics.world.enable(this);
     this.setCollideWorldBounds = true;
+    this.body.onWorldBounds = true;
     this.body.onCollide = true;
 
-    this.body.onWorldBounds = true;
-    
     // Set depth to 3. 
     this.setDepth(3);
   }
@@ -44,7 +43,6 @@ class Spaceship extends Phaser.GameObjects.Sprite {
           }
         }
 
-        // this.body.setVelocityY(0);
         this.tick++;
     }
 
@@ -61,13 +59,13 @@ class Spaceship extends Phaser.GameObjects.Sprite {
             this.lasers.push(new Projectile(this.scene, this.x, this.y - 35));   
           }
 
+          // Foreach enemy on scree and each lasers, setup a collider callback.
           for (let i = 0; i < this.scene.enemy.length; i++) {
-            for (let j = 0; j < this.lasers.length; j++) {
+            for (let j = this.lasers.length - (this.laserUpgrade + 1); j < this.lasers.length; j++) {
               this.scene.physics.add.collider(this.lasers[j], this.scene.enemy[i], this.lasers[j].onCollision);
             }
           }
         }
-      }
-      
+    }
 }
 

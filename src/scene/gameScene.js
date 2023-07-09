@@ -3,7 +3,7 @@ class GameScene extends Phaser.Scene {
     constructor() {
         super('game');
         this.ticks = 0;
-        this.ennemy = [];
+        this.enemy = [];
         this.projectileUpgrade = null;
         this.storyteller = new Storyteller();
         this.colorsHelper = new ColorsHelper();
@@ -15,7 +15,7 @@ class GameScene extends Phaser.Scene {
         this.load.image('volumetricfog2', 'assets/fogb320x480.png');
         this.load.image('volumetricfog3', 'assets/fogc320x480.png');
         this.load.image('spaceship', 'assets/spaceship.png');
-        this.load.image('ennemy1', 'assets/ennemy1.png');
+        this.load.image('enemy1', 'assets/ennemy1.png');
         this.load.image('projectile', 'assets/laser.png');  
         this.load.image('laserup', 'assets/laserup.png');
     }
@@ -79,9 +79,9 @@ class GameScene extends Phaser.Scene {
             this.physics.add.collider(this.projectileUpgrade, this.spaceship, this.projectileUpgrade.onCollision);  
         }
 
-        // Create ennemy every n frames.
+        // Create enemies every n frames.
         if (roll + -0.10 <= this.storyteller.temperature && this.ticks % 60 == 0) {
-            // Setup a new ennemy wave.
+            // Setup a new enemy wave.
             let enemiesCount = Math.floor(Phaser.Math.Between(4, 8) * this.storyteller.temperature) + 1;
             let wave = new Wave(this, enemiesCount);
             let wavePattern = new WavePatterns(48, 8, 0);
@@ -92,12 +92,12 @@ class GameScene extends Phaser.Scene {
         // Need to create a garbage-collector to destroy units who get out of screen or get beam
         // by the player.
         if (this.ticks % 24 == 0) {
-            for (let i = 0; i < this.ennemy.length; i++) {
-                if (this.ennemy[i].y >= game.config.height) 
-                    this.ennemy[i].destroy();   
+            for (let i = 0; i < this.enemy.length; i++) {
+                if (this.enemy[i].y >= game.config.height) 
+                    this.enemy[i].destroy();   
 
-                if (this.ennemy[i].active === false)
-                    this.ennemy.splice(i, 1);
+                if (this.enemy[i].active === false)
+                    this.enemy.splice(i, 1);
                     this.storyteller.temperature -= 0.025;
                     if (this.storyteller.temperature < 0)
                         this.storyteller.temperature = 0;

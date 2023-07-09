@@ -61,9 +61,9 @@ class Spaceship extends Phaser.GameObjects.Sprite {
             this.lasers.push(new Projectile(this.scene, this.x, this.y - 35));   
           }
 
-          for (let i = 0; i < this.scene.ennemy.length; i++) {
+          for (let i = 0; i < this.scene.enemy.length; i++) {
             for (let j = 0; j < this.lasers.length; j++) {
-              this.scene.physics.add.collider(this.lasers[j], this.scene.ennemy[i], this.lasers[j].onCollision);
+              this.scene.physics.add.collider(this.lasers[j], this.scene.enemy[i], this.lasers[j].onCollision);
             }
           }
         }

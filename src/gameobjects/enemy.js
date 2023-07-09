@@ -1,6 +1,6 @@
-class Ennemy extends Phaser.GameObjects.Sprite {
+class Enemy extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y) {
-      super(scene, x, y, 'ennemy1');
+      super(scene, x, y, 'enemy1');
   
       // Add this projectile to the scene
       scene.add.existing(this);
@@ -8,7 +8,7 @@ class Ennemy extends Phaser.GameObjects.Sprite {
       // Enable physics on the projectile
       scene.physics.world.enable(this);
   
-      // Set up initial velocity for the ennemy.
+      // Set up initial velocity for the enemy.
       this.body.setVelocityX(0);
       this.body.setVelocityY(96);
 
@@ -19,8 +19,8 @@ class Ennemy extends Phaser.GameObjects.Sprite {
       this.body.onCollide = true;
     }
 
-    onCollision(ennemy, spaceship) {
-        ennemy.destroy();
+    onCollision(enemy, spaceship) {
+        enemy.destroy();
         if (spaceship.laserUpgrade > 0) {
           spaceship.laserUpgrade--;
         }

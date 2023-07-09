@@ -5,11 +5,11 @@ class Wave {
         this.units = [];    
 
         for (let i = 0; i < this.unitsCount; i++) { 
-            this.scene.ennemy.push(new Ennemy(this.scene, 0, 0));
-            this.scene.physics.add.collider(this.scene.ennemy[this.scene.ennemy.length - 1], this.scene.spaceship,
-                this.scene.ennemy[this.scene.ennemy.length - 1].onCollision);
+            this.scene.enemy.push(new Enemy(this.scene, 0, 0));
+            this.scene.physics.add.collider(this.scene.enemy[this.scene.enemy.length - 1], this.scene.spaceship,
+                this.scene.enemy[this.scene.enemy.length - 1].onCollision);
             // TODO: Trigger explosion animation here.
-            this.units.push(this.scene.ennemy.length - 1);
+            this.units.push(this.scene.enemy.length - 1);
         }
     }
 
@@ -17,8 +17,8 @@ class Wave {
         let size = 0;
 
         for (let i = 0; i < this.units.length; i++) {
-            if (this.scene.ennemy[this.units[i]].width > size) {
-                size = this.scene.ennemy[this.units[i]].width;
+            if (this.scene.enemy[this.units[i]].width > size) {
+                size = this.scene.enemy[this.units[i]].width;
             }
         }
 
@@ -30,7 +30,7 @@ class Wave {
     }
 
     getUnitByIndex(index) {
-        return this.scene.ennemy[this.units[index]];
+        return this.scene.enemy[this.units[index]];
     }
 
     countUnits() {
@@ -38,7 +38,7 @@ class Wave {
     }
 
     remove(index) {
-        this.scene.ennemy.splice(this.units[index], 1);
+        this.scene.enemy.splice(this.units[index], 1);
         this.units.splice(index , 1);
     }
 

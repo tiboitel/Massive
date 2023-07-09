@@ -15,13 +15,15 @@ class WavePatterns {
         let largestUnitSize = wave.getLargestUnitWidth();
         let waveWidth = largestUnitSize * wave.countUnits();
         // TO-DO: Change the position calculation depends of the patterns.
-        let wavePosX = (this.direction) ? Phaser.Math.Between(largestUnitSize, wave.scene.game.config.width - waveWidth) :
-            Phaser.Math.Between(largestUnitSize + waveWidth, wave.scene.game.config.width);
-        for (let i = 0; i < wave.countUnits(); i++) { 
-            let currentEnnemyPosX = (this.direction) ? wavePosX + (i * this.offsetX) : wavePosX - (i * this.offsetX);
-            let currentEnnemyPosY = this.offsetY * i;
+        if (patternType == Patterns.Line) {
+            let wavePosX = (this.direction) ? Phaser.Math.Between(largestUnitSize, wave.scene.game.config.width - waveWidth + 10) :
+                Phaser.Math.Between(largestUnitSize + waveWidth, wave.scene.game.config.width);
+            for (let i = 0; i < wave.countUnits(); i++) { 
+                let currentEnnemyPosX = (this.direction) ? wavePosX + (i * this.offsetX) : wavePosX - (i * this.offsetX);
+                let currentEnnemyPosY = this.offsetY * i;
 
-            wave.getUnitByIndex(i).setPosition(currentEnnemyPosX, currentEnnemyPosY);
+                wave.getUnitByIndex(i).setPosition(currentEnnemyPosX, currentEnnemyPosY);
+            }
         }
     }
 }

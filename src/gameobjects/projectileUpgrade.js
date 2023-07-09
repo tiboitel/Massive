@@ -1,4 +1,4 @@
-class Boost extends Phaser.GameObjects.Sprite {
+class ProjectileUpgrade extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y) {
       super(scene, x, y, 'laserup');
   
@@ -22,10 +22,10 @@ class Boost extends Phaser.GameObjects.Sprite {
       this.body.onCollideCallback = this.onCollision.bind(this);
     }
 
-    onCollision(boost, spaceship) {
+    onCollision(projectileUpgrade, spaceship) {
         if (spaceship.laserUpgrade < 3)
           spaceship.laserUpgrade += 1;
-        boost.destroy();
+        projectileUpgrade.destroy();
 
     }
   

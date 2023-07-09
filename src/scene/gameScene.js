@@ -4,7 +4,7 @@ class GameScene extends Phaser.Scene {
         super('game');
         this.ticks = 0;
         this.ennemy = [];
-        this.boost = null;
+        this.projectileUpgrade = null;
         this.storyteller = new Storyteller();
         this.colorsHelper = new ColorsHelper();
     }
@@ -71,12 +71,12 @@ class GameScene extends Phaser.Scene {
         // Layer fog
         this.layerFog.update();
 
-        // Create a new boost every n frames.
+        // Create a new projectile upgrade every n frames.
         let roll = Phaser.Math.FloatBetween(0, 1);
 
         if (roll <= this.storyteller.temperature && this.ticks % 360 == 0) {
-            this.boost = new Boost(this, Phaser.Math.Between(16, game.config.width - 16), -32);
-            this.physics.add.collider(this.boost, this.spaceship, this.boost.onCollision);  
+            this.projectileUpgrade = new ProjectileUpgrade(this, Phaser.Math.Between(16, game.config.width - 16), -32);
+            this.physics.add.collider(this.projectileUpgrade, this.spaceship, this.projectileUpgrade.onCollision);  
         }
 
         // Create ennemy every n frames.
@@ -103,8 +103,8 @@ class GameScene extends Phaser.Scene {
                         this.storyteller.temperature = 0;
             }
 
-            if (this.boost != null && this.boost.y > game.config.height)
-                this.boost.destroy();
+            if (this.projectileUpgrade != null && this.boost.y > game.config.height)
+                this.projectileUpgrade.destroy();
         }
         this.storyteller.update(this.ticks);
         this.ticks++;

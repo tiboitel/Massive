@@ -34,42 +34,57 @@ class KeyboardController {
     }
   
     moveUp() {
+      if (this.gameObject.shield != null)
+        this.gameObject.shield.body.setVelocityY(-this.gameObject.speed);
       this.gameObject.body.setVelocityY(-this.gameObject.speed);
     }
   
     moveLeft() {
-       this.gameObject.body.setVelocityX(-this.gameObject.speed);  
+      if (this.gameObject.shield != null)
+        this.gameObject.shield.body.setVelocityX(-this.gameObject.speed);
+      this.gameObject.body.setVelocityX(-this.gameObject.speed);  
     }
   
     moveDown() {
-       this.gameObject.body.setVelocityY(this.gameObject.speed);
+      if (this.gameObject.shield != null)
+        this.gameObject.shield.body.setVelocityY(this.gameObject.speed);
+      this.gameObject.body.setVelocityY(this.gameObject.speed);
     }
   
     moveRight() {
+      if (this.gameObject.shield != null)
+        this.gameObject.shield.body.setVelocityX(this.gameObject.speed);
       this.gameObject.body.setVelocityX(this.gameObject.speed);
     }
   
     stopUp() {
       if (this.keys.S.isUp) {
+        if (this.gameObject.shield != null)
+          this.gameObject.shield.body.setVelocityY(0);
         this.gameObject.body.setVelocityY(0);
       }
     }
   
     stopLeft() {
       if (this.keys.D.isUp) {
+        if (this.gameObject.shield != null)
+          this.gameObject.shield.body.setVelocityX(0);
        this.gameObject.body.setVelocityX(0);
     }
   }
   
     stopDown() {
       if (this.keys.Z.isUp) {
-        // this.gameObject.speedY = 0;
+        if (this.gameObject.shield != null)
+          this.gameObject.shield.body.setVelocityY(0);
         this.gameObject.body.setVelocityY(0);
       }
     }
 
     stopRight() {
         if (this.keys.Q.isUp) {
+            if (this.gameObject.shield != null)
+              this.gameObject.shield.body.setVelocityX(0);
             this.gameObject.body.setVelocityX(0);
         }
     }

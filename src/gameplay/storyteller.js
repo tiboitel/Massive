@@ -12,7 +12,6 @@ class Storyteller {
 
         this.gameDifficulty = (ticks / 10800) % 1;
 
-        console.log("Temperature: " + this.temperature);
         if (this.temperature <= 0)
             this.temperature = 0;
         if (this.temperature >= 0.99)

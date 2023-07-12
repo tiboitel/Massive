@@ -5,6 +5,7 @@ class GameScene extends Phaser.Scene {
         this.ticks = 0;
         this.enemy = [];
         this.projectileUpgrade = null;
+        this.shieldUpgrade = null;
         this.storyteller = new Storyteller();
         this.colorsHelper = new ColorsHelper();
     }
@@ -16,8 +17,10 @@ class GameScene extends Phaser.Scene {
         this.load.image('volumetricfog3', 'assets/fogc320x480.png');
         this.load.image('spaceship', 'assets/spaceship.png');
         this.load.image('enemy1', 'assets/enemy1.png');
-        this.load.image('projectile', 'assets/laser.png');  
+        this.load.image('projectile', 'assets/laser.png');
+        this.load.image('energyshield', 'assets/energy_shield.png');  
         this.load.image('laserup', 'assets/laserup.png');
+        this.load.image('shieldup', 'assets/shieldup.png');
     }
 
     create() {
@@ -74,9 +77,15 @@ class GameScene extends Phaser.Scene {
         // Create a new projectile upgrade every n frames.
         let roll = Phaser.Math.FloatBetween(0, 1);
 
-        if (roll <= this.storyteller.temperature && this.ticks % 360 == 0) {
-            this.projectileUpgrade = new ProjectileUpgrade(this, Phaser.Math.Between(16, game.config.width - 16), -32);
-            this.physics.add.collider(this.projectileUpgrade, this.spaceship, this.projectileUpgrade.onCollision);  
+        if (roll <= this.storyteller.temperature && this.ticks % 10 == 0) {
+            let boostType = Phaser.Math.Between(0, 1);
+            if (boostType) {
+                this.projectileUpgrade = new ProjectileUpgrade(this, Phaser.Math.Between(16, game.config.width - 16), -32);
+                this.physics.add.collider(this.projectileUpgrade, this.spaceship, this.projectileUpgrade.onCollision);
+            } else {
+                this.shieldUpgrade = new ShieldUpgrade(this, Phaser.Math.Between(16, game.config.width - 16), -32);
+                this.physics.add.collider(this.shieldUpgrade, this.spaceship, this.shieldUpgrade.onCollision);
+            }
         }
 
         // Create enemies every n frames.
@@ -103,7 +112,7 @@ class GameScene extends Phaser.Scene {
                         this.storyteller.temperature = 0;
             }
 
-            if (this.projectileUpgrade != null && this.projectileUpgrade.y > game.config.height)
+            if (this.projectileUpgrade != null && this.projectileUpgrade    .y > game.config.height)
                 this.projectileUpgrade.destroy();
         }
         this.storyteller.update(this.ticks);

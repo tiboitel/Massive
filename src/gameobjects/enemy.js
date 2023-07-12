@@ -21,7 +21,11 @@ class Enemy extends Phaser.GameObjects.Sprite {
 
     onCollision(enemy, spaceship) {
         enemy.destroy();
-        if (spaceship.laserUpgrade > 0) {
+        if (spaceship.shield != null) {
+          spaceship.shield.destroy();
+          spaceship.shield = null;
+        }
+        else if (spaceship.laserUpgrade > 0) {
           spaceship.laserUpgrade--;
         }
         spaceship.body.setVelocityY(0);

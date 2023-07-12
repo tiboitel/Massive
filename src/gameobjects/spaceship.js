@@ -9,10 +9,11 @@ class Spaceship extends Phaser.GameObjects.Sprite {
     this.lasers = [];
     this.scene = scene;
     this.laserUpgrade = 0;
-    this.lastFrameTimespan = 0;
+    this.shield = null;
+
 
     // Scale the container to the desired size
-    this.setScale(0.4);
+    this.setScale(0.35);
 
     // Enable physics.
     scene.physics.world.enable(this);
@@ -43,6 +44,12 @@ class Spaceship extends Phaser.GameObjects.Sprite {
           }
         }
 
+        if (this.shield != null) {
+          if (this.shield.x != this.x)
+            this.shield.x = this.x;
+          if (this.shield.y != this.y)
+            this.shield.y = this.y; 
+        }
         this.tick++;
     }
 
@@ -66,6 +73,12 @@ class Spaceship extends Phaser.GameObjects.Sprite {
             }
           }
         }
+    }
+
+    addShield() {
+      if (this.shield == null) {
+        this.shield = new Shield(this.scene, this.x, this.y, this);
+      }
     }
 }
 

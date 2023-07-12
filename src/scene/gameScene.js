@@ -77,7 +77,7 @@ class GameScene extends Phaser.Scene {
         // Create a new projectile upgrade every n frames.
         let roll = Phaser.Math.FloatBetween(0, 1);
 
-        if (roll <= this.storyteller.temperature && this.ticks % 10 == 0) {
+        if (roll <= this.storyteller.temperature && this.ticks % 360 == 0) {
             let boostType = Phaser.Math.Between(0, 1);
             if (boostType) {
                 this.projectileUpgrade = new ProjectileUpgrade(this, Phaser.Math.Between(16, game.config.width - 16), -32);

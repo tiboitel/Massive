@@ -2,7 +2,7 @@ class GameScene extends Phaser.Scene {
 
     constructor() {
         super('game');
-        this.ticks = 0;
+        this.elapsedTime = 0;
         this.enemy = [];
         this.projectileUpgrade = null;
         this.shieldUpgrade = null;
@@ -53,7 +53,7 @@ class GameScene extends Phaser.Scene {
         this.layerFog = new LayerFog(this, 0, 0, game.config.width, game.config.height, this.colorscheme[0]);
     }
 
-    update() {
+    update(time, delta) {
         // Player
         this.spaceship.update();
 
@@ -77,7 +77,7 @@ class GameScene extends Phaser.Scene {
         // Create a new projectile upgrade every n frames.
         let roll = Phaser.Math.FloatBetween(0, 1);
 
-        if (roll <= this.storyteller.temperature && this.ticks % 360 == 0) {
+        if (roll <= this.storyteller.temperature && this.elapsedTime % 3 == 0) {
             let boostType = Phaser.Math.Between(0, 1);
             if (boostType) {
                 this.projectileUpgrade = new ProjectileUpgrade(this, Phaser.Math.Between(16, game.config.width - 16), -32);
@@ -89,7 +89,7 @@ class GameScene extends Phaser.Scene {
         }
 
         // Create enemies every n frames.
-        if (roll + -0.10 <= this.storyteller.temperature && this.ticks % 60 == 0) {
+        if (roll + -0.10 <= this.storyteller.temperature && this.elapsedTime % 12 == 0) {
             // Setup a new enemy wave.
             let enemiesCount = Math.floor(Phaser.Math.Between(4, 8) * this.storyteller.temperature) + 1;
             let wave = new Wave(this, enemiesCount);
@@ -100,7 +100,7 @@ class GameScene extends Phaser.Scene {
         
         // Need to create a garbage-collector to destroy units who get out of screen or get beam
         // by the player.
-        if (this.ticks % 24 == 0) {
+        if (this.elapsedTime % 2 == 0) {
             for (let i = 0; i < this.enemy.length; i++) {
                 if (this.enemy[i].y >= game.config.height) 
                     this.enemy[i].destroy();   
@@ -115,7 +115,7 @@ class GameScene extends Phaser.Scene {
             if (this.projectileUpgrade != null && this.projectileUpgrade    .y > game.config.height)
                 this.projectileUpgrade.destroy();
         }
-        this.storyteller.update(this.ticks);
-        this.ticks++;
+        this.storyteller.update(this.elapsedTime);
+        this.elapsedTime += Math.ceil(delta);
     }
 } 

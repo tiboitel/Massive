@@ -95,7 +95,8 @@ class GameScene extends Phaser.Scene {
                 // Setup a new enemy wave.
                 let enemiesCount = Math.floor(Phaser.Math.Between(4, 8) * this.storyteller.temperature) + 1;
                 let wave = new Wave(this, enemiesCount);
-                let wavePattern = new WavePatterns(48, 8, 0);
+                let waveDirection = Phaser.Math.Between(0, 1);
+                let wavePattern = new WavePatterns(48, 8, waveDirection);
 
                 wavePattern.applyWavePatterns(wave, 0);       
             }

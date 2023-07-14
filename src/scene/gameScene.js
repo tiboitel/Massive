@@ -115,7 +115,8 @@ class GameScene extends Phaser.Scene {
 
             if (this.projectileUpgrade != null && this.projectileUpgrade.y > game.config.height)
                 this.projectileUpgrade.destroy();
-
+            if (this.shieldUpgrade != null && this.shieldUpgrade.y > game.config.height)
+                this.shieldUpgrade.destroy();
             this.storyteller.update(this.elapsedTime);
         }
         this.elapsedTime += Math.ceil(delta);

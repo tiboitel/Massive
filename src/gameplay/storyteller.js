@@ -10,7 +10,7 @@ class Storyteller {
     update(ticks) { 
         this.temperature = (this.gameDifficultyWeight * this.gameDifficulty) + (this.playerPerformanceWeight * this.playerPerformance);
 
-        this.gameDifficulty = (ticks / 100800) % 1 ;
+        this.gameDifficulty = (ticks / 300000) % 1 ;
 
         if (this.temperature <= 0)
             this.temperature = 0;

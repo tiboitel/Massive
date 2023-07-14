@@ -3,6 +3,7 @@ class GameScene extends Phaser.Scene {
     constructor() {
         super('game');
         this.elapsedTime = 0;
+        this.eventsTimer = 0;
         this.enemy = [];
         this.projectileUpgrade = null;
         this.shieldUpgrade = null;
@@ -74,33 +75,33 @@ class GameScene extends Phaser.Scene {
         // Layer fog
         this.layerFog.update();
 
-        // Create a new projectile upgrade every n frames.
-        let roll = Phaser.Math.FloatBetween(0, 1);
+        // Create a new projectile upgrade every n seconds.
+        if (this.eventsTimer + delta >= 1000) {
+            let roll = Phaser.Math.FloatBetween(0, 1);
 
-        if (roll <= this.storyteller.temperature && this.elapsedTime % 3 == 0) {
-            let boostType = Phaser.Math.Between(0, 1);
-            if (boostType) {
-                this.projectileUpgrade = new ProjectileUpgrade(this, Phaser.Math.Between(16, game.config.width - 16), -32);
-                this.physics.add.collider(this.projectileUpgrade, this.spaceship, this.projectileUpgrade.onCollision);
-            } else {
-                this.shieldUpgrade = new ShieldUpgrade(this, Phaser.Math.Between(16, game.config.width - 16), -32);
-                this.physics.add.collider(this.shieldUpgrade, this.spaceship, this.shieldUpgrade.onCollision);
+            if (this.elapsedTime % Math.ceil(3000 + (3000 * (1 - this.storyteller.temperature))) < 500) {
+                let boostType = Phaser.Math.Between(0, 1);
+                if (boostType) {
+                    this.projectileUpgrade = new ProjectileUpgrade(this, Phaser.Math.Between(16, game.config.width - 16), -32);
+                    this.physics.add.collider(this.projectileUpgrade, this.spaceship, this.projectileUpgrade.onCollision);
+                } else {
+                    this.shieldUpgrade = new ShieldUpgrade(this, Phaser.Math.Between(16, game.config.width - 16), -32);
+                    this.physics.add.collider(this.shieldUpgrade, this.spaceship, this.shieldUpgrade.onCollision);
+                }
             }
-        }
 
-        // Create enemies every n frames.
-        if (roll + -0.10 <= this.storyteller.temperature && this.elapsedTime % 12 == 0) {
-            // Setup a new enemy wave.
-            let enemiesCount = Math.floor(Phaser.Math.Between(4, 8) * this.storyteller.temperature) + 1;
-            let wave = new Wave(this, enemiesCount);
-            let wavePattern = new WavePatterns(48, 8, 0);
+            // Create enemies every n seconds.
+            if (roll + -0.10 <= this.storyteller.temperature) {
+                // Setup a new enemy wave.
+                let enemiesCount = Math.floor(Phaser.Math.Between(4, 8) * this.storyteller.temperature) + 1;
+                let wave = new Wave(this, enemiesCount);
+                let wavePattern = new WavePatterns(48, 8, 0);
 
-            wavePattern.applyWavePatterns(wave, 0);       
-        }
-        
-        // Need to create a garbage-collector to destroy units who get out of screen or get beam
-        // by the player.
-        if (this.elapsedTime % 2 == 0) {
+                wavePattern.applyWavePatterns(wave, 0);       
+            }
+            
+            // Need to create a garbage-collector to destroy units who get out of screen or get beam
+            // by the player.
             for (let i = 0; i < this.enemy.length; i++) {
                 if (this.enemy[i].y >= game.config.height) 
                     this.enemy[i].destroy();   
@@ -112,10 +113,15 @@ class GameScene extends Phaser.Scene {
                         this.storyteller.temperature = 0;
             }
 
-            if (this.projectileUpgrade != null && this.projectileUpgrade    .y > game.config.height)
+            if (this.projectileUpgrade != null && this.projectileUpgrade.y > game.config.height)
                 this.projectileUpgrade.destroy();
+
+            this.storyteller.update(this.elapsedTime);
         }
-        this.storyteller.update(this.elapsedTime);
         this.elapsedTime += Math.ceil(delta);
+        this.eventsTimer += Math.ceil(delta);
+        if (this.eventsTimer >= 1000) {
+            this.eventsTimer = 0;
+        }
     }
-} 
+}

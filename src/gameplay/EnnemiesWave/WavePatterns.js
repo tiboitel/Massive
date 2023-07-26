@@ -1,7 +1,7 @@
 const Patterns = {
     Line : 0,
     V: 1,
-    Diagonal: 2
+    Cross: 2,    
 };
 
 class WavePatterns {
@@ -14,14 +14,17 @@ class WavePatterns {
     applyWavePatterns(wave, patternType) {
         let largestUnitSize = wave.getLargestUnitWidth();
         let waveWidth = largestUnitSize * wave.countUnits();
-        // TO-DO: Change the position calculation depends of the patterns.
+        let centerX = Phaser.Math.Between(largestUnitSize, wave.scene.game.config.width - waveWidth + 10);
+    
         if (patternType == Patterns.Line) {
-            let wavePosX = (this.direction) ? Phaser.Math.Between(largestUnitSize, wave.scene.game.config.width - waveWidth + 10) :
-                Phaser.Math.Between(largestUnitSize + waveWidth, wave.scene.game.config.width);
-            for (let i = 0; i < wave.countUnits(); i++) { 
-                let currentEnemyPosX = (this.direction) ? wavePosX + (i * this.offsetX) : wavePosX - (i * this.offsetX);
-                let currentEnemyPosY = this.offsetY * i;
-
+            let wavePosY = 0;
+            if (this.direction) {
+                wavePosY = this.offsetY * (wave.countUnits() - 1);
+            }
+            for (let i = 0; i < wave.countUnits(); i++) {
+                let currentEnemyPosX = centerX + (this.direction ? (i * this.offsetX) : -(i * this.offsetX));
+                let currentEnemyPosY = wavePosY - (this.offsetY * i);
+    
                 wave.getUnitByIndex(i).setPosition(currentEnemyPosX, currentEnemyPosY);
             }
         }

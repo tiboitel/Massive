@@ -81,10 +81,10 @@ class GameScene extends Phaser.Scene {
 
             if (this.elapsedTime % Math.ceil(3000 + (3000 * (1 - this.storyteller.temperature))) < 500) {
                 let boostType = Phaser.Math.Between(0, 1);
-                if (boostType) {
+                if (boostType && this.spaceship.laserUpgrade < 3) {
                     this.projectileUpgrade = new ProjectileUpgrade(this, Phaser.Math.Between(16, game.config.width - 16), -32);
                     this.physics.add.collider(this.projectileUpgrade, this.spaceship, this.projectileUpgrade.onCollision);
-                } else {
+                } else if (boostType == 0 && this.spaceship.shield == null)     {
                     this.shieldUpgrade = new ShieldUpgrade(this, Phaser.Math.Between(16, game.config.width - 16), -32);
                     this.physics.add.collider(this.shieldUpgrade, this.spaceship, this.shieldUpgrade.onCollision);
                 }

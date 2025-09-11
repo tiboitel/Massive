@@ -2,7 +2,7 @@ class Spaceship extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y) {
     super(scene, x, y, 'spaceship');
     
-    this.speed = 256;
+    this.speed = 384;;
     this.isFiring = false;
     this.fireRate = 32;
     this.tick = 0;
@@ -10,7 +10,7 @@ class Spaceship extends Phaser.GameObjects.Sprite {
     this.scene = scene;
     this.laserUpgrade = 0;
     this.shield = null;
-
+    this.life = 3;
 
     // Scale the container to the desired size
     this.setScale(0.35);
@@ -30,7 +30,7 @@ class Spaceship extends Phaser.GameObjects.Sprite {
         this.shoot();
 
         // Update tick.
-        if (this.tick > 3600) {
+        if (this.tick > 512) {
           this.tick = 0;
         }
 

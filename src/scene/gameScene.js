@@ -79,7 +79,7 @@ class GameScene extends Phaser.Scene {
         if (this.eventsTimer + delta >= 1000) {
             let roll = Phaser.Math.FloatBetween(0, 1);
 
-            if (this.elapsedTime % Math.ceil(3000 + (3000 * (1 - this.storyteller.temperature))) < 500) {
+            if (this.elapsedTime % Math.ceil(2048 + (2048 * (1 - this.storyteller.temperature))) < 500) {
                 let boostType = Phaser.Math.Between(0, 1);
                 if (boostType && this.spaceship.laserUpgrade < 3) {
                     this.projectileUpgrade = new ProjectileUpgrade(this, Phaser.Math.Between(16, game.config.width - 16), -32);
@@ -91,9 +91,9 @@ class GameScene extends Phaser.Scene {
             }
 
             // Create enemies every n seconds.
-            if (roll + -0.10 <= this.storyteller.temperature) {
+            if (roll + -0.25 <= this.storyteller.temperature) {
                 // Setup a new enemy wave.
-                let enemiesCount = Math.floor(Phaser.Math.Between(4, 8) * this.storyteller.temperature) + 1;
+                let enemiesCount = Math.floor(Phaser.Math.Between(8, 12) * this.storyteller.temperature) + 1;
                 let wave = new Wave(this, enemiesCount);
                 let waveDirection = Phaser.Math.Between(0, 1);
                 let wavePattern = new WavePatterns(48, 8, waveDirection);
@@ -118,6 +118,7 @@ class GameScene extends Phaser.Scene {
                 this.projectileUpgrade.destroy();
             if (this.shieldUpgrade != null && this.shieldUpgrade.y > game.config.height)
                 this.shieldUpgrade.destroy();
+            console.log(this.storyteller.temperature);
             this.storyteller.update(this.elapsedTime);
         }
         this.elapsedTime += Math.ceil(delta);

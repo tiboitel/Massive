@@ -35,7 +35,7 @@ class Spaceship extends Phaser.GameObjects.Sprite {
         }
 
         // Remove lasers out of screen.
-        if (this.ticks % 24 == 0) {
+        if (this.tick % 24 == 0) {
           for (let i = 0; i < this.lasers.length; i++) {
             if (this.lasers[i].y < 0 || this.lasers[i].y > this.scene.game.config.height)
               this.lasers[i].destroy();

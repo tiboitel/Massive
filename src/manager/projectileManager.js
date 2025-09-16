@@ -23,6 +23,7 @@ export default class ProjectileManager {
       this.scene.physics.add.collider(projectile, this.scene.enemyManager.group, (proj, enemy) => {
         proj.setActive(false).setVisible(false);
         proj.body.stop();
+        proj.body.enable = false;
         enemy.setActive(false).setVisible(false);
       });
 
@@ -48,6 +49,7 @@ export default class ProjectileManager {
       if (p.active && p.y < 0) {
         p.setActive(false).setVisible(false);
         p.body.stop();
+        p.body.enable = false;
       }
     });
   }

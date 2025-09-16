@@ -28,7 +28,7 @@ export class GameScene extends Phaser.Scene {
   }
 
   create() {
-    this.colorscheme = [0x37e2d5, 0xc70a80, 0x590696, 0xfbcb0a];
+    this.colorscheme = [0x37e2d5, 0xfc40ff, 0x590696, 0xfbcb0a];
     this.projectileManager = new ProjectileManager(this);
 
     this.spaceship = new Spaceship(
@@ -43,20 +43,20 @@ export class GameScene extends Phaser.Scene {
 
     this.keyboardController = new KeyboardController(this, this.spaceship);
     this.storyteller = new StorytellerManager();
-    this.starfieldManager = new StarfieldManager(this);
     this.fogManager = new VolumetricFogManager(this, this.colorscheme);
+    this.starfieldManager = new StarfieldManager(this);
     this.upgradeManager = new UpgradeManager(this, this.spaceship);
     this.enemyManager = new EnemyManager(this, this.spaceship); // integrates with Wave system
   }
 
   update(time, delta) {
     this.spaceship.update();
-    this.starfieldManager.update();
     this.fogManager.update(this.storyteller.temperature);
+    this.starfieldManager.update();
 
-    if (this.eventsTimer + delta >= 1000) {
+    if (this.eventsTimer + delta >= 2048) {
       // spawn upgrades
-      if (this.elapsedTime % Math.ceil(2048 + 2048 * (1 - this.storyteller.temperature)) < 500) {
+      if (this.elapsedTime % Math.ceil(5192 * (1 - this.storyteller.temperature)) < 500) {
         const x = Phaser.Math.Between(16, this.sys.game.config.width - 16);
         this.upgradeManager.spawnRandomUpgrade(x, -32);
       }

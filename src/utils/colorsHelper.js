@@ -18,8 +18,9 @@ class ColorsHelper {
       
         // Convert RGB components to hexadecimal
         var hex = ((r << 16) | (g << 8) | b);
-      
-        return '0x' + hex.toString(16).padStart(6, '0').toUpperCase();      
+     
+        // In ColorsHelper
+        return parseInt(hex.toString(16).padStart(6, '0'), 16); // return numeric
       }
 }
 

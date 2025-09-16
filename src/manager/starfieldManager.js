@@ -3,7 +3,7 @@ import Starfield from "../gameobjects/starfield/starfield.js";
 export class StarfieldManager {
   constructor(scene) {
     this.scene = scene;
-    this.starfield = new Starfield(scene, 2, 0.6, 2, 0);
+    this.starfield = new Starfield(scene, 3, 0.5, 2.5, 0); // density, speed, maxSize, depth
   }
 
   update() {
@@ -11,4 +11,5 @@ export class StarfieldManager {
   }
 }
 
-export default Starfield;
+export default StarfieldManager;
+

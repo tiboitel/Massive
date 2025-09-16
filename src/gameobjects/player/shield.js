@@ -11,3 +11,5 @@ class Shield extends Phaser.GameObjects.Sprite {
         scene.add.existing(this);
     }
 }
+
+export default Shield;

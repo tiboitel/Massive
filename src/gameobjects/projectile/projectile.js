@@ -24,4 +24,5 @@ class Projectile extends Phaser.GameObjects.Sprite {
         object.destroy();
   }
 }
-  
+
+export default Projectile;

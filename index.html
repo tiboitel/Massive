@@ -1,54 +1,26 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Massive!</title>
-        <style>
-            body {
-                margin: 0;
-                margin-top: 5%;
-                padding: 0;
-                background: #000;
-            }
-
-            #main-wrapper {
-                margin : auto;
-                height: 480px;
-                width: 320px;
-                background: #000;
-                border: 1px solid #250033;
-                font-family: DotGothic16, serif;
-            }
-        </style>
-    </head>
-    <body>
-        <div id="main-wrapper">
-            <div id="massive-game">
-            </div>
-            <div style="text-align: center; font-size: 14px; color: white;">
-                Press ZQSD to move and SPACEBAR to shoot !
-            </div>  
-       </div>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.60.0/phaser.min.js"></script>
-            <script src="src/gameobjects/player/spaceship.js"></script>
-            <script src="src/gameobjects/enemy/enemy.js"></script>
-            <script src="src/gameobjects/projectile/projectile.js"></script>
-            <script src="src/gameobjects/player/shield.js"></script>
-            <script src="src/gameobjects/starfield/starfield.js"></script>
-            <script src="src/gameobjects/fog/volumetricFog.js"></script>
-            <script src="src/gameobjects/fog/layerFog.js"></script>
-            <script src="src/gameobjects/upgrade/projectileUpgrade.js"></script>
-            <script src="src/gameobjects/upgrade/shieldUpgrade.js"></script>
-            <script src="src/controller/keyboardController.js"></script>
-            <script src="src/gameplay/storyteller.js"></script>
-            <script src="src/gameplay/EnnemiesWave/Wave.js"></script>
-            <script src="src/gameplay/EnnemiesWave/WavePatterns.js"></script>
-            <script src="src/gameplay/EnnemiesWave/WaveFactory.js"></script>
-            <script src="src/utils/colorsHelper.js"></script>
-            <script src="src/scene/gameScene.js"></script> 
-            <script src="src/main.js"></script>
-            <link rel="preconnect" href="https://fonts.googleapis.com">
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-            <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">  
-    </body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Massive!</title>
+    <style>
+      body {
+        margin: 0;
+        background: #000;
+      }
+      #main-wrapper {
+        margin: auto;
+        height: 480px;
+        width: 320px;
+        border: 1px solid #250033;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main-wrapper">
+      <div id="massive-game"></div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
 </html>
+

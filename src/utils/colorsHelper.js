@@ -22,3 +22,5 @@ class ColorsHelper {
         return '0x' + hex.toString(16).padStart(6, '0').toUpperCase();      
       }
 }
+
+export default ColorsHelper;

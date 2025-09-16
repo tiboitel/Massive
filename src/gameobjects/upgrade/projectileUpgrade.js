@@ -18,3 +18,5 @@ class ProjectileUpgrade extends Phaser.GameObjects.Sprite {
         projectileUpgrade.destroy();
     }
 }
+
+export default ProjectileUpgrade;

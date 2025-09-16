@@ -31,3 +31,5 @@ class Enemy extends Phaser.GameObjects.Sprite {
         spaceship.body.setVelocityY(0);
     }
 }
+
+export default Enemy;

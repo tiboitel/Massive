@@ -1,0 +1,27 @@
+{
+  "name": "massive",
+  "version": "1.0.0",
+  "description": "Welcome to Massive - a minimalist space shoot write in JavaScript using the fantastic Phaser game framework version 3.60! Prepare to embark on a cosmic adventure, battling hordes of intergalactic invaders !",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tiboitel/Massive.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tiboitel/Massive/issues"
+  },
+  "homepage": "https://github.com/tiboitel/Massive#readme",
+  "devDependencies": {
+    "phaser": "^3.90.0",
+    "vite": "^4.5.0"
+  }
+}

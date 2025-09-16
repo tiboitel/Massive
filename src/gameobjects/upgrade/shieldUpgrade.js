@@ -17,3 +17,5 @@ class ShieldUpgrade extends Phaser.GameObjects.Sprite {
         shieldUpgrade = null;
     }
 }
+
+export default ShieldUpgrade;

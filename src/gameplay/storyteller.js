@@ -18,3 +18,5 @@ class Storyteller {
             this.temperature = 1;
     }
 }
+
+export default Storyteller;

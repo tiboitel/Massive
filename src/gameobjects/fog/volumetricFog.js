@@ -9,7 +9,7 @@ class VolumetricFog {
     this.color = color;
     this.fogImage = this.scene.add.image(x + width / 2, y + height / 2, this.spriteName).setOrigin(0.5);
     this.fogImage.depth = 1000; // Set depth to ensure it's above all other game objects
-    this.fogImage.setBlendMode(Phaser.BlendModes.ADD);
+    //  this.fogImage.setBlendMode(Phaser.BlendModes.ADD);
     this.fogImage.setTint(color); // Set the tint to the desired color
     this.fogImage.setScale(width / this.fogImage.width, height / this.fogImage.height);
   }
@@ -30,3 +30,4 @@ class VolumetricFog {
   }
 }
 
+export default VolumetricFog;

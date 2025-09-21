@@ -24,7 +24,6 @@ class VolumetricFog {
     this.fogImage.setTint(this.color); // Set the tint to the desired color
     this.fogImage.alpha = alpha;
     this.fogImage.y += 2.5 * 500 / 1000;
-    this.fogImage.tilePositionY += 2.5 * 500 / 1000;
     if (this.fogImage.y >= this.height * 1.5)
         this.fogImage.y = 0 - this.height / 2;
   }

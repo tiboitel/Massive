@@ -2,12 +2,25 @@
 
 Welcome to Massive - a minimalist space shoot write in JavaScript using the fantastic Phaser game framework version 3.60! Prepare to embark on a cosmic adventure, battling hordes of intergalactic invaders !
 
+### Setup
+
+```bash
+# Install dependencies
+npm install
+
+# Start dev server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+```
+
 ## How to Play
 
-    • Clone or download the repository to your local machine.
-    • Run `php -S localhost:8080' (or clone it in any other HTTP server), write the address on your favorite browser.
     • Use the WASD to navigate your spaceship.
-    • Press the spacebar to unleash a fiery barrage of laser beams.
     • Aim your shots at the alien invaders and obliterate them before they get you down !
     • Dodge enemy fire and collect power-ups to enhance your ship's firepower.
     • Survive wave after wave of relentless alien attacks to achieve victory!
@@ -15,7 +28,11 @@ Welcome to Massive - a minimalist space shoot write in JavaScript using the fant
 ## Features
 
     • WELL, WELL, NOTHING UNDER THE SUN. STILL IN DEVELOPMENT.
+    - Starfield background
     - Awesome homemade fog effect (Pro FX)
+    - Dynamic Wave System
+    - Upgrade (shield, multishot..)
+    - Procedural difficulty
 
 ## Technologies Used
 

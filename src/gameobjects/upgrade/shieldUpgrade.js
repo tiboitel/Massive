@@ -14,7 +14,6 @@ class ShieldUpgrade extends Phaser.GameObjects.Sprite {
             spaceship.addShield();
         }
         shieldUpgrade.destroy();
-        shieldUpgrade = null;
     }
 }
 

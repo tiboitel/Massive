@@ -16,15 +16,15 @@ export class GameScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('volumetricfog1', 'public/assets/fog320x480.png');
-    this.load.image('volumetricfog2', 'public/assets/fogb320x480.png');
-    this.load.image('volumetricfog3', 'public/assets/fogc320x480.png');
-    this.load.image('spaceship', 'public/assets/spaceship.png');
-    this.load.image('enemy1', 'public/assets/enemy1.png');
-    this.load.image('projectile', 'public/assets/laser.png');
-    this.load.image('energyshield', 'public/assets/energy_shield.png');
-    this.load.image('laserup', 'public/assets/laserup.png');
-    this.load.image('shieldup', 'public/assets/shieldup.png');
+    this.load.image('volumetricfog1', 'assets/fog320x480.png');
+    this.load.image('volumetricfog2', 'assets/fogb320x480.png');
+    this.load.image('volumetricfog3', 'assets/fogc320x480.png');
+    this.load.image('spaceship', 'assets/spaceship.png');
+    this.load.image('enemy1', 'assets/enemy1.png');
+    this.load.image('projectile', 'assets/laser.png');
+    this.load.image('energyshield', 'assets/energy_shield.png');
+    this.load.image('laserup', 'assets/laserup.png');
+    this.load.image('shieldup', 'assets/shieldup.png');
   }
 
   create() {

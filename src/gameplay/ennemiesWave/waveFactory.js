@@ -1,14 +1,24 @@
-class WaveFactory {
-    constructor() {
+// src/gameobjects/enemies/WaveFactory.js
+import Wave from "./wave.js";
+import WavePatterns from "./wavePatterns.js";
 
+export default class WaveFactory {
+  static create(scene, count, pattern = "line") {
+    if (!WavePatterns[pattern]) {
+      console.warn(`[WaveFactory] Pattern "${pattern}" not found. Falling back to "line".`);
+      pattern = "line";
     }
 
-    create(enemiesCount) {
-        // Later when differents enemies type, replace 48 hard-code size to spaceship size. 
-        let enemiesWavePatterns = new WavePatterns(48, enemiesCount, 24, 8, 1); 
-        let enemiesWave = new Wave();
+    const wave = new Wave(scene, count);
+    const positions = WavePatterns[pattern](scene, count);
 
-        enemiesWavePatterns.applyWavePatterns(enemiesWave, 0);
-        return wave;
-    }
+    wave.enemies.forEach((enemy, index) => {
+      if (positions[index]) {
+        enemy.setPosition(positions[index].x, positions[index].y);
+      }
+    });
+
+    return wave;
+  }
 }
+

@@ -1,4 +1,5 @@
-import Enemy from "../gameobjects/enemy/enemy.js";
+import WaveFactory from '../gameplay/ennemiesWave/waveFactory.js'
+import Enemy from '../gameobjects/enemy/enemy.js';
 
 export default class EnemyManager {
   constructor(scene) {
@@ -36,11 +37,7 @@ export default class EnemyManager {
   spawnWave(temperature) {
     const enemiesCount = Math.floor(Phaser.Math.Between(8, 12) * temperature) + 1;
 
-    for (let i = 0; i < enemiesCount; i++) {
-      const x = Phaser.Math.Between(16, this.scene.sys.game.config.width - 16);
-      const y = -32; // spawn offscreen top
-      this.spawn(x, y);
-    }
+    this.currentWWave = WaveFactory.create(this.scene, enemiesCount, "line");
   }
 
   cleanup() {

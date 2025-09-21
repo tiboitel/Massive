@@ -1,4 +1,3 @@
-// src/gameobjects/enemies/WaveFactory.js
 import Wave from "./wave.js";
 import WavePatterns from "./wavePatterns.js";
 
@@ -6,7 +5,7 @@ export default class WaveFactory {
   static create(scene, count, pattern = "line") {
     if (!WavePatterns[pattern]) {
       console.warn(`[WaveFactory] Pattern "${pattern}" not found. Falling back to "line".`);
-      pattern = "line";
+      pattern = "cross";
     }
 
     const wave = new Wave(scene, count);

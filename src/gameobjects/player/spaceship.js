@@ -1,17 +1,19 @@
 import Shield from "./shield.js";
 
+import { PLAYER_SPEED, PLAYER_HEALTH } from "../../config/constants.js";
+
 class Spaceship extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y, projectileManager) {
     super(scene, x, y, 'spaceship');
 
     this.projectileManager = projectileManager;
-    this.speed = 384;
+    this.speed = PLAYER_SPEED;
     this.isFiring = false;
     this.fireRate = 32;
     this.tick = 0;
     this.laserUpgrade = 0;
     this.shield = null;
-    this.life = 3;
+    this.life = PLAYER_HEALTH;
 
     scene.physics.world.enable(this);
     this.setDepth(3);

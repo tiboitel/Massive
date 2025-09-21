@@ -1,5 +1,4 @@
 import Spaceship from "../gameobjects/player/spaceship.js";
-// Handles ProjectileUpgrade and ShieldUpgrade spawning and pooling
 import KeyboardController from "../controller/keyboardController.js";
 import StorytellerManager from "../manager/storytellerManager.js";
 import StarfieldManager from "../manager/starfieldManager.js";
@@ -65,10 +64,10 @@ export class GameScene extends Phaser.Scene {
       this.enemyManager.spawnWave(this.storyteller.temperature);
 
       this.upgradeManager.update(delta);
-      this.enemyManager.cleanup();
-
       this.storyteller.update(this.elapsedTime);
 
+      if (this.enemyManager)
+        this.enemyManager.cleanup();
       this.eventsTimer = 0;
     }
 

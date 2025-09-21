@@ -1,5 +1,6 @@
 import WaveFactory from '../gameplay/ennemiesWave/waveFactory.js'
 import Enemy from '../gameobjects/enemy/enemy.js';
+import { DEFAULT_WAVE_SIZE } from '../config/constants.js';
 
 export default class EnemyManager {
   constructor(scene) {
@@ -35,9 +36,9 @@ export default class EnemyManager {
   }
 
   spawnWave(temperature) {
-    const enemiesCount = Math.floor(Phaser.Math.Between(8, 12) * temperature) + 1;
-
-    this.currentWWave = WaveFactory.create(this.scene, enemiesCount, "line");
+    const enemiesCount = DEFAULT_WAVE_SIZE;
+    let pattern = (Math.floor(Math.random() * 2) == 0) ? "line" : "v";
+    this.currentWave = WaveFactory.create(this.scene, enemiesCount, pattern);
   }
 
   cleanup() {

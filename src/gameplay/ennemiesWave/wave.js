@@ -1,37 +1,37 @@
 export default class Wave {
   constructor(scene, unitsCount) {
     this.scene = scene;
-    this.units = [];
+    this.enemies = [];
 
     for (let i = 0; i < unitsCount; i++) {
       const enemy = this.scene.enemyManager.spawn(0, 0);
-      if (enemy) this.units.push(enemy);
+      if (enemy) this.enemies.push(enemy);
     }
   }
 
   getLargestUnitWidth() {
-    return Math.max(...this.units.map(e => e.width), 0);
+    return Math.max(...this.enemies.map(e => e.width), 0);
   }
 
   getUnitByIndex(i) {
-    return this.units[i];
+    return this.enemies[i];
   }
 
   countUnits() {
-    return this.units.length;
+    return this.enemies.length;
   }
 
   remove(i) {
-    const enemy = this.units[i];
+    const enemy = this.enemies[i];
     if (enemy) {
       enemy.setActive(false).setVisible(false);
-      this.units.splice(i, 1);
+      this.enemies.splice(i, 1);
     }
   }
 
   destroy() {
-    this.units.forEach(e => e.setActive(false).setVisible(false));
-    this.units = [];
+    this.enemies.forEach(e => e.setActive(false).setVisible(false));
+    this.enemies = [];
   }
 }
 

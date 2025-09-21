@@ -1,8 +1,8 @@
 // src/config/constants.js
 
 // Game dimensions
-export const GAME_WIDTH = 800;
-export const GAME_HEIGHT = 600;
+export const GAME_WIDTH = 480;
+export const GAME_HEIGHT = 320;
 
 // Player
 export const PLAYER_SPEED = 300;
@@ -19,7 +19,3 @@ export const MAX_STAR_SIZE = 2;
 
 // Waves
 export const DEFAULT_WAVE_SIZE = 5;
-
-// Storyteller
-export const TEMPERATURE_INCREMENT = 0.05;
-

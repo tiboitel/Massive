@@ -1,3 +1,5 @@
+import { PROJECTILE_SPEED } from '../config/constants'
+
 export default class ProjectileManager {
   constructor(scene) {
     this.scene = scene;
@@ -16,7 +18,7 @@ export default class ProjectileManager {
 
       projectile.setActive(true).setVisible(true);
       this.scene.physics.world.enable(projectile);
-      projectile.body.setVelocity(0, -500);
+      projectile.body.setVelocity(0, -PROJECTILE_SPEED);
       projectile.setDepth(2);
 
       // Collision with enemies
